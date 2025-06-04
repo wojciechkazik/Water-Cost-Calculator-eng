@@ -198,32 +198,16 @@
       border-bottom: none;
     }
     
-    /* Detailed Analysis Styles */
-    .detailed-analysis {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      border: 1px solid #e9ecef;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    
-    .analysis-title {
-      color: #2c5aa0;
-      margin-bottom: 20px;
-      font-size: 18px;
-    }
-    
-    .result-grid {
+    /* Detailed Analysis Styles - now applied to results section */
+    .results .result-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-bottom: 25px;
+      margin: 25px 0;
       width: 100%;
     }
     
-    .result-card {
+    .results .result-card {
       background: white;
       padding: 20px;
       border-radius: 8px;
@@ -233,30 +217,30 @@
       box-sizing: border-box;
     }
     
-    .result-card h4 {
+    .results .result-card h4 {
       margin: 0 0 10px 0;
       color: #333;
       font-size: 16px;
     }
     
-    .result-value {
+    .results .result-value {
       font-size: 24px;
       font-weight: bold;
       color: #2c5aa0;
       margin-bottom: 5px;
     }
     
-    .result-unit {
+    .results .result-unit {
       color: #666;
       font-size: 14px;
     }
     
-    .cost-display {
+    .results .cost-display {
       margin-top: 10px;
       color: #666;
     }
     
-    .cost-value {
+    .results .cost-value {
       font-size: 18px;
       font-weight: bold;
       color: #2c5aa0;
@@ -299,53 +283,39 @@
         margin-bottom: 15px;
       }
       
+      /* Mobile optimized results section */
       .results {
         padding: 15px;
         margin-top: 15px;
       }
       
-      /* Mobile optimized detailed analysis */
-      .detailed-analysis {
-        padding: 15px;
-        margin-top: 20px;
-        /* Ensure full width on mobile */
-        margin-left: -5px;
-        margin-right: -5px;
-        width: calc(100% + 10px);
-      }
-      
-      .analysis-title {
-        font-size: 16px;
-        margin-bottom: 15px;
-      }
-      
       /* Single column on mobile for better readability */
-      .result-grid {
+      .results .result-grid {
         grid-template-columns: 1fr;
         gap: 15px;
-        margin-bottom: 20px;
+        margin: 20px 0;
       }
       
-      .result-card {
+      .results .result-card {
         padding: 15px;
         /* Ensure cards don't get compressed */
         min-width: auto;
         width: 100%;
       }
       
-      .result-card h4 {
+      .results .result-card h4 {
         font-size: 14px;
       }
       
-      .result-value {
+      .results .result-value {
         font-size: 20px;
       }
       
-      .result-unit {
+      .results .result-unit {
         font-size: 12px;
       }
       
-      .cost-value {
+      .results .cost-value {
         font-size: 16px;
       }
       
@@ -354,9 +324,9 @@
         padding: 15px;
         margin-top: 15px;
         /* Ensure full width on mobile */
-        margin-left: -5px;
-        margin-right: -5px;
-        width: calc(100% + 10px);
+        margin-left: -15px;
+        margin-right: -15px;
+        width: calc(100% + 30px);
       }
       
       .tips-section h3 {
@@ -375,9 +345,9 @@
         padding: 15px;
         margin-top: 15px;
         /* Ensure full width on mobile */
-        margin-left: -5px;
-        margin-right: -5px;
-        width: calc(100% + 10px);
+        margin-left: -15px;
+        margin-right: -15px;
+        width: calc(100% + 30px);
       }
       
       .cta-section h3 {
@@ -399,13 +369,12 @@
     
     /* Extra small devices */
     @media (max-width: 480px) {
-      .detailed-analysis,
       .tips-section,
       .cta-section {
         /* Even more width on very small devices */
-        margin-left: -10px;
-        margin-right: -10px;
-        width: calc(100% + 20px);
+        margin-left: -20px;
+        margin-right: -20px;
+        width: calc(100% + 40px);
       }
       
       .toggle-buttons {
@@ -474,62 +443,49 @@
     </form>
 
     <div class="results" id="results" style="display: none;">
-      <h2>Results</h2>
-      <div class="one-time-costs">
-        <p>Single watering session water usage: <strong><span id="singleWaterUsage"></span></strong></p>
-        <p>Single watering session cost: <strong><span id="singleWaterCost"></span></strong></p>
-      </div>
-      <div class="annual-costs">
-        <p>Annual water usage: <strong><span id="annualWaterUsage"></span></strong></p>
-        <p>Annual watering cost: <strong><span id="annualCost"></span></strong></p>
-        <p>Monthly average cost: <strong><span id="monthlyCost"></span></strong></p>
+      <h2>💰 Your Water Cost Analysis</h2>
+      
+      <!-- Result Grid -->
+      <div class="result-grid">
+        <div class="result-card">
+          <h4>Single Watering Session</h4>
+          <div class="result-value" id="detailedSingleUsage"></div>
+          <div class="result-unit" id="detailedSingleUnit"></div>
+          <div class="cost-display">
+            Cost: <span class="cost-value" id="detailedSingleCost"></span>
+          </div>
+        </div>
+        
+        <div class="result-card">
+          <h4>Annual Water Usage</h4>
+          <div class="result-value" id="detailedAnnualUsage"></div>
+          <div class="result-unit" id="detailedAnnualUnit"></div>
+        </div>
+        
+        <div class="result-card">
+          <h4>Annual Water Bill</h4>
+          <div class="result-value" id="detailedAnnualCost"></div>
+          <div class="result-unit">per year</div>
+        </div>
+        
+        <div class="result-card">
+          <h4>Monthly Average</h4>
+          <div class="result-value" id="detailedMonthlyCost"></div>
+          <div class="result-unit">per month</div>
+        </div>
       </div>
       
-      <!-- Detailed Analysis Section -->
-      <div class="detailed-analysis">
-        <h3 class="analysis-title">💰 Your Water Cost Analysis</h3>
-        
-        <div class="result-grid">
-          <div class="result-card">
-            <h4>Single Watering Session</h4>
-            <div class="result-value" id="detailedSingleUsage"></div>
-            <div class="result-unit" id="detailedSingleUnit"></div>
-            <div class="cost-display">
-              Cost: <span class="cost-value" id="detailedSingleCost"></span>
-            </div>
-          </div>
-          
-          <div class="result-card">
-            <h4>Annual Water Usage</h4>
-            <div class="result-value" id="detailedAnnualUsage"></div>
-            <div class="result-unit" id="detailedAnnualUnit"></div>
-          </div>
-          
-          <div class="result-card">
-            <h4>Annual Water Bill</h4>
-            <div class="result-value" id="detailedAnnualCost"></div>
-            <div class="result-unit">per year</div>
-          </div>
-          
-          <div class="result-card">
-            <h4>Monthly Average</h4>
-            <div class="result-value" id="detailedMonthlyCost"></div>
-            <div class="result-unit">per month</div>
-          </div>
-        </div>
-        
-        <div class="tips-section">
-          <h3>💡 Ways to Reduce Your Garden Water Bill</h3>
-          <ul>
-            <li>💡 Install a separate water meter for irrigation to avoid sewer charges</li>
-            <li>💡 Use smart irrigation systems with weather sensors</li>
-            <li>💡 Water during early morning or evening to reduce evaporation</li>
-            <li>💡 Consider drought-resistant plants and xeriscaping</li>
-            <li>💡 Collect rainwater in barrels or cisterns</li>
-            <li>💡 Apply mulch to retain soil moisture longer</li>
-            <li>💡 Install drip irrigation for maximum efficiency</li>
-          </ul>
-        </div>
+      <div class="tips-section">
+        <h3>💡 Ways to Reduce Your Garden Water Bill</h3>
+        <ul>
+          <li>💡 Install a separate water meter for irrigation to avoid sewer charges</li>
+          <li>💡 Use smart irrigation systems with weather sensors</li>
+          <li>💡 Water during early morning or evening to reduce evaporation</li>
+          <li>💡 Consider drought-resistant plants and xeriscaping</li>
+          <li>💡 Collect rainwater in barrels or cisterns</li>
+          <li>💡 Apply mulch to retain soil moisture longer</li>
+          <li>💡 Install drip irrigation for maximum efficiency</li>
+        </ul>
       </div>
     </div>
     
@@ -607,15 +563,7 @@
       
       const monthlyCost = annualCost / 12;
 
-      // Display results
-      document.getElementById('singleWaterUsage').textContent = singleWaterUsage.toFixed(2) + ' ' + waterUnit;
-      document.getElementById('singleWaterCost').textContent = singleWaterCost.toFixed(2) + (costUnit ? ' ' + costUnit : '');
-      
-      document.getElementById('annualWaterUsage').textContent = annualWaterUsage.toFixed(0) + ' ' + waterUnit;
-      document.getElementById('annualCost').textContent = annualCost.toFixed(2) + (costUnit ? ' ' + costUnit : '');
-      document.getElementById('monthlyCost').textContent = monthlyCost.toFixed(2) + (costUnit ? ' ' + costUnit : '');
-
-      // Display detailed analysis
+      // Display results only in detailed cards
       document.getElementById('detailedSingleUsage').textContent = singleWaterUsage.toFixed(2);
       document.getElementById('detailedSingleUnit').textContent = waterUnit + ' of water';
       document.getElementById('detailedSingleCost').textContent = singleWaterCost.toFixed(2) + (costUnit ? ' ' + costUnit : '');
